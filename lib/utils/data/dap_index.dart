@@ -7,15 +7,23 @@ import 'package:pangolin/utils/data/models/application.dart';
 import 'package:pangolin/utils/data/package_model.dart';
 
 String applicationPath = '${Platform.environment['HOME']!}/Applications/data/';
+String applicationPath1 = '${Platform.environment['HOME']!}/.local/share/applications/';
+String applicationPath2 = '/usr/share/applications/';
 
 void indexApplications() {
 //remove every web app from the list of applications
 
   final List<String> packages =
       Process.runSync('ls', [applicationPath]).stdout.toString().split('\n');
+  final List<String> packages1 =
+      Process.runSync('ls', [applicationPath1]).stdout.toString().split('\n');
+  final List<String> packages2 =
+      Process.runSync('ls', [applicationPath2]).stdout.toString().split('\n');
+  packages.addAll(packages1);
+  packages.addAll(packages2);
   print(packages);
   for (final String package in packages) {
-    if (package.endsWith('.json')) {
+    if (package.endsWith('.json') ) {
       Process.run('cat', ['$applicationPath$package']).then(
         (result) {
           final String rawData = result.stdout.toString();

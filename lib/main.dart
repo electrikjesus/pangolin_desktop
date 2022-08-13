@@ -57,6 +57,7 @@ Future<void> main() async {
       indexApplications();
     }
 
+  indexApplications();
 
   runApp(
     EasyLocalization(
